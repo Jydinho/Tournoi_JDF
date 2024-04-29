@@ -126,5 +126,15 @@ class Score(models.Model):
         {self.egalites} et niveau défaites : {self.defaites}."
 
 
+class Inscription(models.Model):
+    status = models.CharField(max_length=20)
+    date_inscription = models.IntegerField()
+    fk_joueur = models.ForeignKey(Joueur, on_delete=models.CASCADE)
+    fk_tournoi = models.ForeignKey(Tournoi, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Le joueur {self.fk_joueur.prenom} {self.fk_joueur.nom}
+        s est inscrit le {self.date_inscription} et son status de 
+        paiement est : {self.status}"
 
 
