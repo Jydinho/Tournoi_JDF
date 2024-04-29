@@ -94,7 +94,10 @@ class Tournoi(models.Model):
     nombre_de_place = models.IntegerField()
     paf = models.CharField(max_length=10, blank=True, null=True)
     reglement = models.TextField()
+    fk_jeu = models.ForeignKey(Jeu, on_delete=models.CASCADE)
+    fk_adresse = models.ForeignKey(Adresse, on_delete=models.CASCADE)
     
+
 
 
 
