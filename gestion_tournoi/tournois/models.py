@@ -86,7 +86,6 @@ class Joueur(models.Model):
                 jeux : {self.jeux}"
 
 
-
 class Tournoi(models.Model):
     nom = models.CharField(max_length=100)
     date_debut = models.DateTimeField()
@@ -96,7 +95,35 @@ class Tournoi(models.Model):
     reglement = models.TextField()
     fk_jeu = models.ForeignKey(Jeu, on_delete=models.CASCADE)
     fk_adresse = models.ForeignKey(Adresse, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"nom du tournoi : {self.nom}"
     
+
+class Rencontre(models.Model):
+    fk_joueur1 = models.ForeignKey(Joueur, on_delete=models.CASCADE)
+    resultat_un = models.IntegerField()
+    fk_joueur2 = models.ForeignKey(Joueur, on_delete=models.CASCADE)
+    resultat_deux = models.IntegerField()
+    fk_tournoi = models.ForeignKey(Tournoi, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Le match entre {self.fk_joueur1.prenom} {self.fk_joueur1.nom} 
+        contre {self.fk_joueur2.prenom} {self.fk_joueur2.nom}\n
+        au tournoi {self.fk_tournoi.nom} au jeu {self.fk_tournoi.fk_jeu.nom}"
+    
+class Score(models.Model):
+    partie_jouees = models.IntegerField()
+    victoires = models.IntegerField()
+    defaites = models.IntegerField()
+    egalites = models.IntegerField()
+    fk_tournoi = models.ForeignKey(Tournoi, on_delete=models.CASCADE)
+    fk_joueur = models.ForeignKey(Joueur, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Le score du joueur {self.fk_joueur.prenom} {self.fk_joueur.nom} est de :\n
+        parties jouées : {self.partie_jouees}, victoires : {self.victoires}, match nul : 
+        {self.egalites} et niveau défaites : {self.defaites}."
 
 
 
